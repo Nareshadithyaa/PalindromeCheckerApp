@@ -1,8 +1,13 @@
+import java.util.Scanner;
+
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        String word = "madam";
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter a string: ");
+        String word = scanner.nextLine();
 
         String reversed = "";
 
@@ -15,5 +20,7 @@ public class PalindromeCheckerApp {
         } else {
             System.out.println(word + " is NOT a Palindrome.");
         }
+
+        scanner.close();
     }
 }
