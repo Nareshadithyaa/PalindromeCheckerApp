@@ -6,6 +6,7 @@ public class PalindromeCheckerApp {
         Node next;
         Node(char data) {
             this.data = data;
+            this.next = null;
         }
     }
     static Node head = null;
@@ -13,24 +14,38 @@ public class PalindromeCheckerApp {
         Node newNode = new Node(c);
         if (head == null) {
             head = newNode;
-            return;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
         }
-        Node temp = head;
-        while (temp.next != null) {
-            temp = temp.next;
-        }
-        temp.next = newNode;
     }
     static boolean isPalindrome() {
-        String original = "";
-        String reversed = "";
-        Node temp = head;
-        while (temp != null) {
-            original += temp.data;
-            reversed = temp.data + reversed;
-            temp = temp.next;
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
         }
-        return original.equals(reversed);
+        Node prev = null;
+        while (slow != null) {
+            Node next = slow.next;
+            slow.next = prev;
+            prev = slow;
+            slow = next;
+        }
+        Node first = head;
+        Node second = prev;
+        while (second != null) {
+            if (first.data != second.data) {
+                return false;
+            }
+            first = first.next;
+            second = second.next;
+        }
+        return true;
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
